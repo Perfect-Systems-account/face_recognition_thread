@@ -522,7 +522,7 @@ def main():
                                            known_names=known_face_names,
                                            fx=scale_factor,
                                            fy=scale_factor).start()
-
+#
     # Process the video rendering in Main thread due to opencv bug for Mac platform
     while True:
 
