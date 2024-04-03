@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c444ec7d-ef4f-44e4-9939-4620787f6b62" name="Changes" comment="with api open door code">
+    <list default="true" id="c444ec7d-ef4f-44e4-9939-4620787f6b62" name="Changes" comment="with similarity percentages">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/face_recognition_webcam_mt.py" beforeDir="false" afterPath="$PROJECT_DIR$/face_recognition_webcam_mt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql_adapter.py" beforeDir="false" afterPath="$PROJECT_DIR$/sql_adapter.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +97,14 @@
       <option name="project" value="LOCAL‎" />
       <updated>1711969492631</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL‎-00004" summary="with similarity percentages">
+      <created>1712142313577</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL‎-00004" />
+      <option name="project" value="LOCAL‎" />
+      <updated>1712142313577</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -115,6 +121,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="try" />
     <MESSAGE value="with api open door code" />
-    <option name="LAST_COMMIT_MESSAGE" value="with api open door code" />
+    <MESSAGE value="with similarity percentages" />
+    <option name="LAST_COMMIT_MESSAGE" value="with similarity percentages" />
   </component>
 </project>

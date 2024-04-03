@@ -103,6 +103,7 @@ class WebcamVideoStream:
     def stop(self):
         self.stopped = True
 
+import time
 
 class FaceRecognitionProcess:
     def __init__(self, fx=0.0, fy=0.0, capture=None, known_encodings=[], known_names=[]):
@@ -114,6 +115,7 @@ class FaceRecognitionProcess:
         self.known_names = known_names
         self.fx = fx
         self.fy = fy
+        self.last_opened = 0  # Track when the door was last opened
 
     def start(self):
         Thread(target=self.process, args=()).start()
@@ -144,14 +146,15 @@ class FaceRecognitionProcess:
                         first_match_index = matches.index(True)
                         _name = self.known_names[first_match_index]
 
-                        # Calculate the similarity percentage
-                        face_distance = FaceRecognition.encoding_distance([self.known_encodings[first_match_index]],
-                                                                          face_encoding)
+                        face_distance = FaceRecognition.encoding_distance([self.known_encodings[first_match_index]], face_encoding)
                         similarity_percentage = 100 - (face_distance[0] * 100)
 
                         # Check if the similarity percentage is greater than or equal to 50%
-                        if similarity_percentage >= 50:
-                            print(f"Door opened for {_name} similarity_percentage= {similarity_percentage}")
+                        # and if 10 seconds have passed since the last door opening
+                        current_time = time.time()
+                        if similarity_percentage >= 50 and (current_time - self.last_opened) > 10:
+                            print(f"Door opened for {_name}")
+                            self.last_opened = current_time
                             # Here you can add your door opening logic
 
                     _face_names.append(_name)
@@ -166,6 +169,71 @@ class FaceRecognitionProcess:
         self.stopped = True
 
 
+
+# WITH SIMILARY PRECENTS
+# class FaceRecognitionProcess:
+#     def __init__(self, fx=0.0, fy=0.0, capture=None, known_encodings=[], known_names=[]):
+#         self.capture = capture
+#         self.stopped = False
+#         self.face_locations = []
+#         self.face_names = []
+#         self.known_encodings = known_encodings
+#         self.known_names = known_names
+#         self.fx = fx
+#         self.fy = fy
+#
+#     def start(self):
+#         Thread(target=self.process, args=()).start()
+#         return self
+#
+#     def process(self):
+#         while not self.stopped:
+#             _frame = self.capture.read()
+#
+#             if not (self.fx == 0.0 and self.fy == 0.0):
+#                 _temp_frame = cv2.resize(_frame, (0, 0), fx=self.fx, fy=self.fy)
+#                 _frame = _temp_frame[:, :, ::-1]
+#             else:
+#                 _frame = _frame[:, :, ::-1]
+#
+#             _face_locations = FaceRecognition.face_locations(_frame)
+#             _face_names = []
+#
+#             if len(self.known_encodings) > 0:
+#                 _face_encodings = FaceRecognition.face_encodings(_frame, locations=_face_locations)
+#
+#                 for face_encoding in _face_encodings:
+#                     matches = FaceRecognition.compare_encodings(self.known_encodings, face_encoding)
+#                     _name = "Unknown"
+#                     similarity_percentage = None
+#
+#                     if True in matches:
+#                         first_match_index = matches.index(True)
+#                         _name = self.known_names[first_match_index]
+#
+#                         # Calculate the similarity percentage
+#                         face_distance = FaceRecognition.encoding_distance([self.known_encodings[first_match_index]],
+#                                                                           face_encoding)
+#                         similarity_percentage = 100 - (face_distance[0] * 100)
+#
+#                         # Check if the similarity percentage is greater than or equal to 50%
+#                         if similarity_percentage >= 50:
+#                             print(f"Door opened for {_name} similarity_percentage= {similarity_percentage}")
+#                             # Here you can add your door opening logic
+#
+#                     _face_names.append(_name)
+#
+#             else:
+#                 _face_names = ["person" for _ in _face_locations]
+#
+#             self.face_locations = _face_locations
+#             self.face_names = _face_names
+#
+#     def stop(self):
+#         self.stopped = True
+
+
+# NUMBER 1
 # class FaceRecognitionProcess:
 #     def __init__(self, fx=0.0, fy=0.0, capture=None, known_encodings=[], known_names=[]):
 #         self.capture = capture
