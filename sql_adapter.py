@@ -363,7 +363,7 @@ def load_known_faces_from_database():
     cursor.close()
     connection.close()
 
-    return known_face_encodings, known_face_names
+    return known_face_encodings, known_face_names, known_face_ids
         #,known_face_ids
 #endregion
 
